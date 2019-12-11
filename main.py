@@ -92,11 +92,14 @@ def check(password):
 
 
 charset = charsets[anchor.data["parameters"]["charset"]]
-print("Starting bruteforce with charset[{}]...".format(charset))
 
-password = brute.force([int(anchor.data["status"]["length"]), int(anchor.data["status"]["depth"])], charset, anchor.data["parameters"]["minimum"], 100, anchor.data["parameters"]["chunk"], check, cache)
-if password:
-	print("\n\nGot it! Password is \"{}\"".format(password))
-	anchor.data["status"]["match"] = password
-	anchor.data["status"]["success"] = True
-	anchor.save()
+if __name__ == '__main__':
+	print("Starting bruteforce with charset[{}]...".format(charset))
+
+	password = brute.force([int(anchor.data["status"]["length"]), int(anchor.data["status"]["depth"])], charset, anchor.data["parameters"]["minimum"], 100, anchor.data["parameters"]["chunk"], check, cache)
+	
+	if password:
+		print("\n\nGot it! Password is \"{}\"".format(password))
+		anchor.data["status"]["match"] = password
+		anchor.data["status"]["success"] = True
+		anchor.save()
